@@ -1,4 +1,3 @@
-
 import React, { useRef } from "react";
 import styled from "styled-components";
 import { message } from "antd";
@@ -52,25 +51,38 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   padding: 20px;
-  background-color: #f0f0f0;
-  min-height: 70vh;
+  min-height: 100vh;
+  position: relative;
+  z-index: 0;
+  background: linear-gradient(135deg,
+    #F4F7FE 0%,
+    rgba(244, 247, 254, 0.95) 20%,
+    rgba(237, 242, 255, 0.85) 50%,
+    rgba(224, 231, 255, 0.75) 80%,
+    #F4F7FE 100%
+  );
 `;
 
 const Wrapper = styled.div`
   width: 100%;
   max-width: 600px;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(112, 144, 176, 0.1);
+  border: 1px solid rgba(112, 144, 176, 0.2);
+  backdrop-filter: blur(20px);
 `;
 
 const Title = styled.h2`
   font-size: 28px;
   font-weight: 600;
   text-align: center;
-  color: ${({ theme }) => theme.text_primary};
-  margin-bottom: 20px;
+  color: #2B3674;
+  margin-bottom: 24px;
+  background: linear-gradient(90deg, #4318FF, #868CFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 
@@ -82,17 +94,43 @@ const Form = styled.form`
 
 const Input = styled.input`
   padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  border: 1px solid rgba(112, 144, 176, 0.2);
+  border-radius: 12px;
   font-size: 16px;
-  color: #333;
+  color: #2B3674;
+  background: rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease;
+
+  &:focus {
+    border-color: #4318FF;
+    box-shadow: 0 0 0 3px rgba(67, 24, 255, 0.1);
+    outline: none;
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  &::placeholder {
+    color: #A3AED0;
+  }
 `;
 
 const TextArea = styled.textarea`
   padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  border: 1px solid rgba(112, 144, 176, 0.2);
+  border-radius: 12px;
   font-size: 16px;
-  color: #333;
+  color: #2B3674;
+  background: rgba(255, 255, 255, 0.8);
   resize: none;
+  transition: all 0.2s ease;
+
+  &:focus {
+    border-color: #4318FF;
+    box-shadow: 0 0 0 3px rgba(67, 24, 255, 0.1);
+    outline: none;
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  &::placeholder {
+    color: #A3AED0;
+  }
 `;

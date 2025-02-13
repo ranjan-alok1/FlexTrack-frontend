@@ -10,19 +10,25 @@ import { logout } from "../redux/reducers/userSlice";
 const Nav = styled.div`
   background-color: ${({ theme }) => theme.bg};
   height: 80px;
+  min-height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 10;
-  color: white;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   border-bottom: 1px solid ${({ theme }) => theme.text_secondary + 20};
+  backdrop-filter: blur(8px);
+  background: ${({ theme }) => theme.bg + "F2"};
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 `;
 const NavContainer = styled.div`
   width: 100%;
   max-width: 1400px;
+  height: 100%;
   padding: 0 24px;
   display: flex;
   gap: 14px;
@@ -34,15 +40,40 @@ const NavLogo = styled(LinkR)`
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   padding: 0 6px;
-  font-weight: 600;
-  font-size: 18px;
   text-decoration: none;
-  color: ${({ theme }) => theme.black};
 `;
 const Logo = styled.img`
   height: 42px;
+`;
+const LogoText = styled.span`
+  font-weight: 700;
+  font-size: 24px;
+  background: linear-gradient(90deg, #4318FF, #868CFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 10px rgba(67, 24, 255, 0.2);
+  letter-spacing: 1px;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #4318FF, #868CFF);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+
+  ${NavLogo}:hover &::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
 `;
 const Mobileicon = styled.div`
   color: ${({ theme }) => theme.text_primary};
@@ -72,14 +103,40 @@ const Navlink = styled(NavLink)`
   color: ${({ theme }) => theme.text_primary};
   font-weight: 500;
   cursor: pointer;
-  transition: all 1s slide-in;
   text-decoration: none;
-  &:hover {
-    color: ${({ theme }) => theme.primary};
+  position: relative;
+  padding: 4px 0;
+  font-size: 16px;
+  transition: color 0.3s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #4318FF, #868CFF);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
   }
+
+  &:hover {
+    color: #4318FF;
+    &::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+
   &.active {
-    color: ${({ theme }) => theme.primary};
-    border-bottom: 1.8px solid ${({ theme }) => theme.primary};
+    color: #4318FF;
+    font-weight: 600;
+    &::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
   }
 `;
 
@@ -109,22 +166,28 @@ const MobileMenu = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: start;
-  gap: 16px;
-  padding: 0 6px;
+  gap: 20px;
   list-style: none;
   width: 90%;
-  padding: 12px 40px 24px 40px;
+  padding: 20px 40px 30px 40px;
   background: ${({ theme }) => theme.bg};
   position: absolute;
   top: 80px;
   right: 0;
   transition: all 0.6s ease-in-out;
-  transform: ${({ isOpen }) =>
-    isOpen ? "translateY(0)" : "translateY(-100%)"};
+  transform: ${({ $isOpen }) =>
+    $isOpen ? "translateY(0)" : "translateY(-100%)"};
   border-radius: 0 0 20px 20px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  opacity: ${({ isOpen }) => (isOpen ? "100%" : "0")};
-  z-index: ${({ isOpen }) => (isOpen ? "1000" : "-1000")};
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  opacity: ${({ $isOpen }) => ($isOpen ? "100%" : "0")};
+  z-index: ${({ $isOpen }) => ($isOpen ? "1000" : "-1000")};
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  & ${Navlink} {
+    width: fit-content;
+    padding: 4px 0;
+  }
 `;
 
 const Navbar = ({ currentUser }) => {
@@ -138,10 +201,10 @@ const Navbar = ({ currentUser }) => {
         </Mobileicon>
         <NavLogo to="/">
           <Logo src={LogoImg} />
-          FlexTrack
+          <LogoText>FlexTrack</LogoText>
         </NavLogo>
 
-        <MobileMenu isOpen={isOpen}>
+        <MobileMenu $isOpen={isOpen}>
           <Navlink to="/">Dashboard</Navlink>
           <Navlink to="/workouts">Workouts</Navlink>
           <Navlink to="/tutorials">Tutorials</Navlink>

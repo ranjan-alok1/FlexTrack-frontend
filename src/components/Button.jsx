@@ -82,7 +82,7 @@ const button = ({
 }) => {
   return (
     <Button
-      onClick={() => !isDisabled && !isLoading && onClick()}
+      onClick={() => (onClick && !isDisabled && !isLoading ? onClick() : null)} // Safeguard if onClick is not provided
       isDisabled={isDisabled}
       type={type}
       isLoading={isLoading}
@@ -103,5 +103,6 @@ const button = ({
     </Button>
   );
 };
+
 
 export default button;

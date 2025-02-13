@@ -9,7 +9,15 @@ const Container = styled.div`
   flex: 1;
   height: 100%;
   display: flex;
-  background: ${({ theme }) => theme.bg};
+  position: relative;
+  z-index: 0;
+  background: linear-gradient(135deg,
+    #F4F7FE 0%,
+    rgba(244, 247, 254, 0.95) 20%,
+    rgba(237, 242, 255, 0.85) 50%,
+    rgba(224, 231, 255, 0.75) 80%,
+    #F4F7FE 100%
+  );
   @media (max-width: 700px) {
     flex-direction: column;
   }
@@ -44,22 +52,31 @@ const Right = styled.div`
   gap: 16px;
   align-items: center;
   justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 4px 12px rgba(112, 144, 176, 0.1);
+  border: 1px solid rgba(112, 144, 176, 0.2);
 `;
 
 const Text = styled.div`
   font-size: 16px;
   text-align: center;
-  color: ${({ theme }) => theme.text_secondary};
+  color: #A3AED0;
   margin-top: 16px;
   @media (max-width: 400px) {
     font-size: 14px;
   }
 `;
 const TextButton = styled.span`
-  color: ${({ theme }) => theme.primary};
+  color: #4318FF;
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 600;
+
+  &:hover {
+    color: #868CFF;
+    text-shadow: 0 0 20px rgba(67, 24, 255, 0.3);
+  }
 `;
 
 const Authentication = () => {
