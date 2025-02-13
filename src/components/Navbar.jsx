@@ -152,13 +152,13 @@ const UserContainer = styled.div`
 `;
 const TextButton = styled.div`
   text-align: end;
-  color: ${({ theme }) => theme.secondary};
+  color: #4318FF;
   cursor: pointer;
   font-size: 16px;
   transition: all 0.3s ease;
   font-weight: 600;
   &:hover {
-    color: ${({ theme }) => theme.primary};
+    color: 4318FF;
   }
 `;
 
